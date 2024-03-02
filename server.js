@@ -1,16 +1,18 @@
-const express = require("express");
-const fetch = require("node-fetch");
+import express from "express";
+import fetch from "node-fetch";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+require("dotenv").config();
+
 const app = express();
 const PORT = process.env.PORT || 3000;
-require.env("dotenv").config();
 
-// Serve static files from the 'public' directory
 app.use(express.static("public"));
 
-// Example API call to OpenWeatherMap via RapidAPI
 app.get("/weather/:city", async (req, res) => {
   const city = req.params.city;
-  const rapidApiKey = process.env.RAPIDAPI_KEY;
+  const rapidApiKey = process.env.RAPIDAPI_KEY; // Ensure you have this in your .env and you're using dotenv
   const url = `https://open-weather13.p.rapidapi.com/city/${city}`;
 
   const options = {
@@ -31,7 +33,6 @@ app.get("/weather/:city", async (req, res) => {
   }
 });
 
-// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
