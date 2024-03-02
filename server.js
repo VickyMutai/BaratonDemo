@@ -27,6 +27,7 @@ app.get("/weather/:city", async (req, res) => {
     const weatherResponse = await fetch(url, options);
     const weatherData = await weatherResponse.json();
     res.json(weatherData);
+    console.log(weatherData);
   } catch (error) {
     console.error("Error fetching weather data from RapidAPI:", error);
     res.status(500).json({ error: "Failed to fetch weather data" });
